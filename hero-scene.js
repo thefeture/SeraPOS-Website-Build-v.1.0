@@ -1,4 +1,4 @@
-import * as THREE from '/vendor/three.module.js';
+import * as THREE from 'three';
 import {media,heroTiles} from './media.js';
 
 export async function startHeroScene(host, motion) {
@@ -77,5 +77,5 @@ export async function startHeroScene(host, motion) {
   host.addEventListener('motionchange',()=>{last=0;draw();wake();});
   renderer.domElement.addEventListener('webglcontextlost',event=>{event.preventDefault();host.dataset.renderer='fallback';if(raf)cancelAnimationFrame(raf);});
   size();host.dataset.renderer='webgl';wake();
-  window.addEventListener('pagehide',()=>{cancelAnimationFrame(raf);ro.disconnect();io.disconnect();cards.forEach(({mesh,texture})=>{texture.dispose();mesh.geometry.dispose();mesh.material.dispose();});renderer.dispose();},{once:true});
+  window.addEventListener('pagehide',event=>{if(event.persisted)return;cancelAnimationFrame(raf);ro.disconnect();io.disconnect();cards.forEach(({mesh,texture})=>{texture.dispose();mesh.geometry.dispose();mesh.material.dispose();});renderer.dispose();});
 }
