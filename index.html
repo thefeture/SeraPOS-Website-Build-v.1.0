@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fa">
+  <meta name="description" content="Meet SeraPOS. A clearer way to think about retail sales, stock and customer balances. Explore the product direction and interactive preview.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>SeraPOS — Your store. In focus.</title>
+  <link rel="icon" href="/assets/serapos-logo.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/product-preview.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="site-header">
+    <a class="brand" href="#top" aria-label="SeraPOS home"><img src="/assets/serapos-logo.svg" width="155" height="24" alt="SeraPOS"></a>
+    <nav class="desktop-nav" aria-label="Main navigation"><a href="#product">The product</a><a href="#experience">A clearer day</a><a href="#next">What's next</a></nav>
+    <div class="header-actions"><a class="header-cta" href="#experience">Take a closer look <span class="icon" data-icon="arrow-up-right"></span></a><button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav"><span class="icon" data-icon="menu"></span></button></div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#product">The product</a><a href="#experience">A clearer day</a><a href="#next">What's next</a></nav>
+  </header>
+  <main id="main">
+    <section class="hero section-shell" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> YOUR STORE. IN FOCUS.</p>
+        <h1 id="hero-title">Less busywork.<br><span>More business.</span></h1>
+        <p class="hero-description">A clearer view of sales, stock and everything in between.<br class="desktop-break"> Meet a simpler direction for your retail day.</p>
+        <a class="button button-blue" href="#experience">See it come together <span class="icon" data-icon="arrow-down"></span></a>
+        <p class="hero-smallprint">Introducing Global SeraPOS <span class="small-separator"></span> Plans from $10 / month</p>
+      </div>
+      <div class="hero-stage" id="product">
+        <div class="stage-backdrop" aria-hidden="true"><span>Room to grow.</span></div>
+        <figure class="product-window hero-product" id="hero-product" aria-label="SeraPOS dashboard concept with synthetic demo data">
+          <div class="preview-topline"><span><span class="status-dot"></span> SeraPOS / Overview</span><span>PRODUCT PREVIEW</span></div>
+          <div data-product-preview="dashboard" class="preview-host"></div>
+        </figure>
+        <div class="floating-note sale-note" aria-hidden="true"><span class="note-icon"><span class="icon" data-icon="check-check"></span></span><div><span class="note-caption">A good day starts here.</span><strong>One sale. Everything connected.</strong></div></div>
+        <div class="floating-note stock-note" aria-hidden="true"><span class="note-icon blue"><span class="icon" data-icon="package"></span></span><div><span class="note-caption">A clearer stock picture</span><strong>Every unit. In the right place.</strong></div></div>
+        <div class="stage-footnote"><span>Illustrative product interface. Synthetic data.</span><span class="scroll-hint">SCROLL TO EXPLORE <span class="icon" data-icon="arrow-down"></span></span></div>
+      </div>
+    </section>
+    <section class="manifesto section-shell" aria-labelledby="manifesto-title">
+      <p class="eyebrow">LESS TO MANAGE. MORE TO SEE.</p>
+      <h2 id="manifesto-title">Your business has a rhythm.<br><span>Your software should follow.</span></h2>
+      <p>From the first sale to the last look at your numbers.<br>One considered workspace, built around a retailer's day.</p>
+    </section>
+    <section class="experience" id="experience" aria-labelledby="experience-title">
+      <div class="experience-sticky">
+        <div class="experience-inner section-shell">
+          <div class="story-copy">
+            <p class="eyebrow" id="experience-title">A CLEARER RETAIL DAY</p>
+            <div class="story-headings">
+              <div class="story-text is-active" data-story="0"><span class="chapter-label">01 / AT THE COUNTER</span><h2>Make room<br>for the sale.</h2><p>Find the right item. Choose the right unit.<br>Keep the customer's moment simple.</p></div>
+              <div class="story-text" data-story="1" inert aria-hidden="true"><span class="chapter-label">02 / BEHIND THE COUNTER</span><h2>Know what<br>you have.</h2><p>Models, serials and stock locations.<br>A useful view of the details that matter.</p></div>
+              <div class="story-text" data-story="2" inert aria-hidden="true"><span class="chapter-label">03 / THE BIGGER PICTURE</span><h2>See the day.<br>Clearly.</h2><p>Bring the moving parts into focus.<br>Less hunting for answers. More perspective.</p></div>
+            </div>
+            <div class="story-tabs" role="tablist" aria-label="Explore product concepts"><button role="tab" id="tab-sale" aria-controls="scene-sale" aria-selected="true" data-scene="0"><span class="tab-index">01</span> Sell</button><button role="tab" id="tab-stock" aria-controls="scene-stock" aria-selected="false" tabindex="-1" data-scene="1"><span class="tab-index">02</span> Stock</button><button role="tab" id="tab-overview" aria-controls="scene-overview" aria-selected="false" tabindex="-1" data-scene="2"><span class="tab-index">03</span> See</button></div>
+            <p class="story-footnote">Explore the product direction.<br>Previews are illustrative, not a live POS.</p>
+          </div>
+          <div class="story-stage">
+            <div class="story-stage-blue" aria-hidden="true"></div>
+            <div class="story-scene is-active" data-scene-panel="0" id="scene-sale" role="tabpanel" aria-labelledby="tab-sale"><div class="product-window"><div class="preview-topline"><span><span class="status-dot"></span> SeraPOS / Point of sale</span><span>PREVIEW</span></div><div data-product-preview="pos" class="preview-host"></div></div></div>
+            <div class="story-scene" data-scene-panel="1" id="scene-stock" role="tabpanel" aria-labelledby="tab-stock" inert aria-hidden="true"><div class="product-window"><div class="preview-topline"><span><span class="status-dot"></span> SeraPOS / Inventory</span><span>PREVIEW</span></div><div data-product-preview="inventory" class="preview-host"></div></div></div>
+            <div class="story-scene" data-scene-panel="2" id="scene-overview" role="tabpanel" aria-labelledby="tab-overview" inert aria-hidden="true"><div class="product-window"><div class="preview-topline"><span><span class="status-dot"></span> SeraPOS / Overview</span><span>PREVIEW</span></div><div data-product-preview="dashboard" class="preview-host"></div></div></div>
+            <div class="scene-caption"><span id="scene-caption">A simpler counter experience.</span><span class="scene-progress" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="next-section section-shell" id="next" aria-labelledby="next-title">
+      <div class="next-rule"></div>
+      <p class="eyebrow">A GOOD PLACE TO START.</p>
+      <h2 id="next-title">Small details.<br><span>Bigger possibilities.</span></h2>
+      <div class="next-bottom"><p>Designed for electronics, laptop, mobile<br>and computer retailers. Built with a global outlook.</p><div class="starting-price"><span>Plans start at</span><strong>$10<span> / month</span></strong></div><a class="text-link" href="#top">Back to the bigger picture <span class="icon" data-icon="arrow-up-right"></span></a></div>
+    </section>
+  </main>
+  <footer class="site-footer section-shell"><a class="brand" href="#top" aria-label="SeraPOS home"><img src="/assets/serapos-logo.svg" width="136" height="21" alt="SeraPOS"></a><p>Retail, with a little more clarity.</p><span>© <span id="year">2026</span> SeraPOS</span></footer>
+</body>
+</html>
