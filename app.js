@@ -1,4 +1,5 @@
 import {media} from './media.js';
+import {initMotion} from './motion.js';
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const header=document.querySelector('.site-header');
 const menuButton=document.querySelector('.menu-toggle');
@@ -18,13 +19,7 @@ if(hero){
  motionButton.addEventListener('click',()=>{manualPause=!manualPause;updateMotion();});reduced.addEventListener('change',updateMotion);updateMotion();
  import('./hero-scene.js').then(({startHeroScene})=>startHeroScene(hero,motion)).catch(()=>{hero.dataset.renderer='fallback';});
 }
-if(!reduced.matches)document.documentElement.classList.add('js-motion');
-const reveals=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');reveals.unobserve(e.target);}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>reveals.observe(el));
-
-const tabs=[...document.querySelectorAll('[data-workflow]')];
-const panels=[...document.querySelectorAll('.workflow-panel')];
-function selectWorkflow(i,focus=false){tabs.forEach((tab,n)=>{tab.setAttribute('aria-selected',String(n===i));tab.tabIndex=n===i?0:-1;panels[n].hidden=n!==i;panels[n].classList.toggle('is-active',n===i);});if(focus)tabs[i].focus();}
-tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>selectWorkflow(i));tab.addEventListener('keydown',e=>{let next=i;if(e.key==='ArrowDown'||e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowUp'||e.key==='ArrowLeft')next=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();selectWorkflow(next,true);});});
+initMotion(reduced);
 
 const dialog=document.createElement('dialog');dialog.className='media-dialog';dialog.setAttribute('aria-label','Product interface preview');dialog.innerHTML='<div class="dialog-top"><span>Actual SeraPOS interface design</span><button aria-label="Close preview"><img class="icon" src="/assets/icons/x.svg" alt="" width="20" height="20"></button></div><img alt="">';document.body.append(dialog);
 const dialogImage=dialog.querySelector(':scope > img');

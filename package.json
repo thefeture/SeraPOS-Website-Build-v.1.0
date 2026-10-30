@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
-    "check": "node --check app.js && node --check hero-scene.js && node --check scripts/generate.mjs && node scripts/check.mjs"
+    "check": "node --check app.js && node --check hero-scene.js && node --check motion.js && node --check scripts/story-template.mjs && node --check scripts/generate.mjs && node scripts/check.mjs"
   },
   "engines": {
     "node": ">=20"

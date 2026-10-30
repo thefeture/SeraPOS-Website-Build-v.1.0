@@ -2,7 +2,7 @@ import './generate.mjs';
 import {mkdir,cp,rm} from 'node:fs/promises';
 import {build} from 'esbuild';
 await rm('dist',{recursive:true,force:true});await mkdir('dist',{recursive:true});
-for(const file of ['index.html','404.html','style.css','app.js','media.js','site-config.js','robots.txt','services','about','pricing','contact'])await cp(file,`dist/${file}`,{recursive:true});
+for(const file of ['index.html','404.html','style.css','motion.css','motion.js','app.js','media.js','site-config.js','robots.txt','services','about','pricing','contact'])await cp(file,`dist/${file}`,{recursive:true});
 await cp('assets','dist/assets',{recursive:true});
 // Keep legacy illustrative previews out of the new public site.
 await rm('dist/assets/product',{recursive:true,force:true});
