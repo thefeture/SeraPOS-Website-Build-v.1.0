@@ -1,56 +1,41 @@
-import {mountPreviews} from './product-preview.js';
-mountPreviews();
-document.querySelectorAll('[data-icon]').forEach(el=>{const img=document.createElement('img');img.src=`/assets/icons/${el.dataset.icon}.svg`;img.alt='';img.width=20;img.height=20;el.replaceChildren(img);});
-document.querySelector('#year').textContent=new Date().getFullYear();
-const menuButton=document.querySelector('.menu-toggle');
-const mobileNav=document.querySelector('#mobile-nav');
-function closeMenu(){menuButton.setAttribute('aria-expanded','false');mobileNav.hidden=true;menuButton.setAttribute('aria-label','Open navigation');}
-menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!open));menuButton.setAttribute('aria-label',open?'Open navigation':'Close navigation');mobileNav.hidden=open;});
-mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!mobileNav.hidden){closeMenu();menuButton.focus();}});
-document.addEventListener('click',e=>{if(!document.querySelector('.site-header').contains(e.target))closeMenu();});
-const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
-const narrow=matchMedia('(max-width: 800px)');
-const experience=document.querySelector('.experience');
-const tabs=Array.from(document.querySelectorAll('[data-scene]'));
-const scenes=Array.from(document.querySelectorAll('[data-scene-panel]'));
-const texts=Array.from(document.querySelectorAll('[data-story]'));
-const captions=['A simpler counter experience.','The details, in their place.','Your day, brought into focus.'];
-let active=0, raf=0, manualScene=false;
-function setScene(index){
- index=Math.max(0,Math.min(2,index));
- if(index===active)return;active=index;
- scenes.forEach((el,i)=>{const on=i===index;el.classList.toggle('is-active',on);el.inert=!on;el.setAttribute('aria-hidden',String(!on));});
- texts.forEach((el,i)=>{const on=i===index;el.classList.toggle('is-active',on);el.inert=!on;el.setAttribute('aria-hidden',String(!on));});
- tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;});
- document.querySelector('#scene-caption').textContent=captions[index];
- document.querySelector('.experience').dataset.active=String(index);
-}
-function selectTab(index){
- if(narrow.matches||reducedMotion.matches){manualScene=true;setScene(index);return;}
- const top=experience.getBoundingClientRect().top+scrollY;
- const range=experience.offsetHeight-innerHeight;
- const target=top+range*(index/3+0.11);
- window.scrollTo({top:target,behavior:reducedMotion.matches?'instant':'smooth'});
-}
-tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectTab(index));tab.addEventListener('keydown',e=>{let next=index;if(e.key==='ArrowRight')next=(index+1)%3;else if(e.key==='ArrowLeft')next=(index+2)%3;else if(e.key==='Home')next=0;else if(e.key==='End')next=2;else return;e.preventDefault();tabs[next].focus();selectTab(next);});});
-const heroProduct=document.querySelector('#hero-product');
-const heroStage=document.querySelector('.hero-stage');
+import {media} from './media.js';
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const header=document.querySelector('.site-header');
-function paint(){
- raf=0;
- header.classList.toggle('is-scrolled',scrollY>24);
- if(!reducedMotion.matches&&!narrow.matches){
-  const rect=heroStage.getBoundingClientRect();const t=Math.max(0,Math.min(1,(innerHeight-rect.top)/(innerHeight+rect.height)));
-  heroProduct.style.transform=`perspective(1600px) rotateX(${7-t*7}deg) translateY(${(1-t)*12}px)`;
-  heroStage.style.setProperty('--float-shift',`${Math.round(t*-32)}px`);
-  const bounds=experience.getBoundingClientRect();const progress=Math.max(0,Math.min(.999,-bounds.top/(experience.offsetHeight-innerHeight)));
-  if(bounds.top<=0&&bounds.bottom>=innerHeight)setScene(Math.floor(progress*3));
-  experience.style.setProperty('--story-progress',progress.toFixed(4));
- }else{heroProduct.style.transform='none';heroStage.style.setProperty('--float-shift','0px');}
+const menuButton=document.querySelector('.menu-toggle');
+const menu=document.querySelector('#mobile-menu');
+function closeMenu(){menu.hidden=true;menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Open menu');}
+menuButton.addEventListener('click',()=>{const open=menu.hidden;menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Close menu':'Open menu');});
+menu.addEventListener('click',event=>{if(event.target.closest('a'))closeMenu();});
+document.addEventListener('click',event=>{if(!header.contains(event.target))closeMenu();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!menu.hidden){closeMenu();menuButton.focus();}});
+window.addEventListener('resize',()=>{if(window.innerWidth>700)closeMenu();},{passive:true});
+const updateHeader=()=>header.classList.toggle('is-scrolled',window.scrollY>20);window.addEventListener('scroll',updateHeader,{passive:true});updateHeader();
+
+const hero=document.querySelector('#hero-scene');
+if(hero){
+ let manualPause=false;const motion={enabled:!reduced.matches};const motionButton=document.querySelector('.motion-toggle');
+ function updateMotion(){motion.enabled=!manualPause&&!reduced.matches;motionButton.setAttribute('aria-pressed',String(!motion.enabled));motionButton.innerHTML=motion.enabled?'Pause motion <span aria-hidden="true">Ⅱ</span>':'Motion paused <span aria-hidden="true">▷</span>';motionButton.disabled=reduced.matches;motionButton.title=reduced.matches?'Motion follows your reduced-motion preference':'';hero.dispatchEvent(new Event('motionchange'));}
+ motionButton.addEventListener('click',()=>{manualPause=!manualPause;updateMotion();});reduced.addEventListener('change',updateMotion);updateMotion();
+ import('./hero-scene.js').then(({startHeroScene})=>startHeroScene(hero,motion)).catch(()=>{hero.dataset.renderer='fallback';});
 }
-function schedule(){if(!raf)raf=requestAnimationFrame(paint);}
-window.addEventListener('scroll',schedule,{passive:true});
-window.addEventListener('resize',schedule,{passive:true});
-reducedMotion.addEventListener('change',schedule);narrow.addEventListener('change',()=>{manualScene=false;schedule();});
-paint();
+if(!reduced.matches)document.documentElement.classList.add('js-motion');
+const reveals=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');reveals.unobserve(e.target);}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>reveals.observe(el));
+
+const tabs=[...document.querySelectorAll('[data-workflow]')];
+const panels=[...document.querySelectorAll('.workflow-panel')];
+function selectWorkflow(i,focus=false){tabs.forEach((tab,n)=>{tab.setAttribute('aria-selected',String(n===i));tab.tabIndex=n===i?0:-1;panels[n].hidden=n!==i;panels[n].classList.toggle('is-active',n===i);});if(focus)tabs[i].focus();}
+tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>selectWorkflow(i));tab.addEventListener('keydown',e=>{let next=i;if(e.key==='ArrowDown'||e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowUp'||e.key==='ArrowLeft')next=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();selectWorkflow(next,true);});});
+
+const dialog=document.createElement('dialog');dialog.className='media-dialog';dialog.setAttribute('aria-label','Product interface preview');dialog.innerHTML='<div class="dialog-top"><span>Actual SeraPOS interface design</span><button aria-label="Close preview"><img class="icon" src="/assets/icons/x.svg" alt="" width="20" height="20"></button></div><img alt="">';document.body.append(dialog);
+const dialogImage=dialog.querySelector(':scope > img');
+document.querySelectorAll('[data-lightbox]').forEach(button=>button.addEventListener('click',()=>{const a=media[button.dataset.lightbox];dialogImage.src=a.src;dialogImage.alt=a.alt;dialogImage.width=a.width;dialogImage.height=a.height;dialog.showModal();document.body.classList.add('modal-open');}));
+dialog.querySelector('button').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});dialog.addEventListener('close',()=>document.body.classList.remove('modal-open'));
+
+const form=document.querySelector('#inquiry-form');
+if(form){
+ const chosen=new URLSearchParams(location.search).get('plan');if(['Starter','Growth','Business'].includes(chosen))form.elements.plan.value=chosen;
+ const result=document.querySelector('#inquiry-result'),preview=document.querySelector('#inquiry-preview');let inquiry='';
+ form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const f=new FormData(form);inquiry=['SeraPOS inquiry','',`Name: ${String(f.get('name')).trim()}`,`Business: ${String(f.get('business')).trim()}`,`Email: ${String(f.get('email')).trim()}`,`Country / region: ${String(f.get('country')).trim()}`,`Business type: ${f.get('businessType')}`,`Package: ${f.get('plan')}`,'','Message:',String(f.get('message')).trim(),'','Prepared locally. This inquiry has not been sent.'].join('\n');preview.textContent=inquiry;form.hidden=true;result.hidden=false;document.querySelector('#download-inquiry').focus();});
+ document.querySelector('#edit-inquiry').addEventListener('click',()=>{result.hidden=true;form.hidden=false;form.elements.name.focus();});
+ document.querySelector('#download-inquiry').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([inquiry],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='SeraPOS-inquiry.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+}

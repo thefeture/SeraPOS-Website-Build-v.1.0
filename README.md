@@ -1,25 +1,27 @@
-# SeraPOS Website
+# Global SeraPOS website
 
-Original Global SeraPOS marketing website. This first phase covers navigation, hero, an opening scroll story, responsive states, and replaceable product media. It uses Inter and the official supplied logo.
+Original six-section Home, Services, Pricing, About and Contact pages. Inter, the official SeraPOS wordmark, approved cropped product designs and a WebGL tile hero.
 
-## Run and check
-
-Requires Node.js 20 or newer. No runtime dependencies.
+## Develop
 
 ```sh
-npm run check
-npm run dev -- --host 0.0.0.0 --port 4173
+npm ci
 npm run build
+npm run check
+npm run dev
 ```
 
-Vercel serves `dist/`. The review site is deliberately marked noindex. Remove review indexing restrictions only when public launch is approved.
+The local server serves the built `dist/` folder. Rebuild after editing sources.
 
-## Replace product images
+## Edit
 
-See `media.js` and `docs/media-guide.md`. The initial views use synthetic data. They are product illustrations, not a functioning merchant account. No payment is collected and no business records are written.
+- `scripts/generate.mjs`: shared header/footer and page content.
+- `style.css`: responsive layout and typography.
+- `app.js`: menus, accessible tabs, image viewer and local inquiry preparation.
+- `hero-scene.js`: Three.js animation with pause/reduced-motion/fallback behavior.
+- `media.js`: centrally replaceable product images.
+- `site-config.js`: package proposals and reserved public contact/app configuration.
 
-## Phase boundaries
+`npm run build` generates HTML and copies only public assets, with Three.js bundled locally. Vercel serves `dist/`. No analytics, database, payment processor or contact delivery is configured. Contact inquiries are generated locally and downloaded only on request. Public contact details are pending.
 
-Full pricing cards, demo/contact delivery, signup/login, CMS, legal policies, and real product integrations are not part of this first phase. The approved starting price is US$10/month. No trial, certification, customer count, or live gateway claim is made.
-
-Icons: Lucide, ISC license included in `assets/icons/LICENSE.txt`. Font: Inter by Rasmus Andersson, SIL Open Font License.
+Preview pages remain noindex. The higher pricing tiers and package allocations are explicitly proposed. Do not remove those labels until commercial terms are approved.

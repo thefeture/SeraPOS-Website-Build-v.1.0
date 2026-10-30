@@ -1,0 +1,122 @@
+{
+  "sales-chart": {
+    "src": "/assets/screens/sales-chart.webp",
+    "width": 934,
+    "height": 566,
+    "source": "Dashboard(1)",
+    "crop": [
+      20,
+      188,
+      954,
+      754
+    ]
+  },
+  "overview": {
+    "src": "/assets/screens/overview.webp",
+    "width": 1880,
+    "height": 1046,
+    "source": "Dashboard(1)",
+    "crop": [
+      20,
+      72,
+      1900,
+      1118
+    ]
+  },
+  "stock-alert": {
+    "src": "/assets/screens/stock-alert.webp",
+    "width": 782,
+    "height": 416,
+    "source": "Dashboard(1)",
+    "crop": [
+      20,
+      1128,
+      802,
+      1544
+    ]
+  },
+  "income-chart": {
+    "src": "/assets/screens/income-chart.webp",
+    "width": 934,
+    "height": 416,
+    "source": "Dashboard(1)",
+    "crop": [
+      966,
+      1554,
+      1900,
+      1970
+    ]
+  },
+  "revenue": {
+    "src": "/assets/screens/revenue.webp",
+    "width": 896,
+    "height": 103,
+    "source": "Dashboard(1)",
+    "crop": [
+      40,
+      631,
+      936,
+      734
+    ]
+  },
+  "customer-invoices": {
+    "src": "/assets/screens/customer-invoices.webp",
+    "width": 1184,
+    "height": 340,
+    "source": "Manage Customer - Single Customer - Invoice",
+    "crop": [
+      368,
+      262,
+      1552,
+      602
+    ]
+  },
+  "wallet": {
+    "src": "/assets/screens/wallet.webp",
+    "width": 1184,
+    "height": 484,
+    "source": "Manage Customer - Single Customer - Wallet",
+    "crop": [
+      368,
+      262,
+      1552,
+      746
+    ]
+  },
+  "products": {
+    "src": "/assets/screens/products.webp",
+    "width": 814,
+    "height": 996,
+    "source": "All Products - Upload Product",
+    "crop": [
+      368,
+      161,
+      1182,
+      1157
+    ]
+  },
+  "product-status": {
+    "src": "/assets/screens/product-status.webp",
+    "width": 350,
+    "height": 264,
+    "source": "All Products - Upload Product",
+    "crop": [
+      1202,
+      161,
+      1552,
+      425
+    ]
+  },
+  "invoice-items": {
+    "src": "/assets/screens/invoice-items.webp",
+    "width": 912,
+    "height": 190,
+    "source": "Manage Invoice - Single Invoice",
+    "crop": [
+      504,
+      552,
+      1416,
+      742
+    ]
+  }
+}

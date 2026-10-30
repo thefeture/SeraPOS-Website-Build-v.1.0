@@ -1,11 +1,12 @@
 # SeraPOS website implementation contract
 
-- This repository contains the Global SeraPOS marketing website only.
-- Use Inter and the supplied official logo. Keep the blue, light neutral, original visual direction.
-- Keep source and public content free of private client/store data, unrelated projects, credentials, and unapproved claims.
-- Import public visual assets locally. Centralize replaceable image paths in media.js.
-- Keep native scrolling, keyboard navigation, touch behavior, and reduced-motion support functional.
-- This first phase is navigation, hero, opening story and responsive states. Review each phase before adding another.
-- Three pricing packages are intended, starting at US$10/month; upper prices and inclusions remain undefined here.
-- Verify actual rendering and interactions, not just the static build. Keep noindex until launch is approved.
-- Use the existing GitHub repository and the correct Vercel workspace. Never create duplicate projects or reset working data.
+- This repository is the Global SeraPOS marketing website only.
+- Latest approved scope: redesign Home with six sections and actual screenshot tiles; add Pricing, About, Services and Contact. This replaces the earlier three-section first-phase constraint.
+- Use Inter, the exact official logo, blue and light neutrals. Rounded floating navigation and an original 3D hero are required.
+- Imported screenshot crops are approved. Never publish original sources containing private contact details, staff portraits or unrelated store branding.
+- All replaceable product image paths belong in media.js; crop provenance belongs in docs/asset-crops.json.
+- Preserve native scrolling, keyboard navigation, mobile layouts and reduced-motion support.
+- Three pricing packages start at US$10/month. US$30/US$50 higher tiers and allocations are a proposal and must stay labelled until finalised.
+- The public contact destination will be supplied later. The form prepares a local inquiry file and must never claim delivery.
+- Keep noindex until launch is approved. Do not invent release status, testimonials, support SLAs, integrations or company facts.
+- Use the existing GitHub repository and Vercel project. Test actual output in the user's connected Chrome.

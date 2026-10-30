@@ -1,1 +1,18 @@
-{"name":"serapos-website","version":"0.1.0","private":true,"type":"module","description":"Global SeraPOS marketing website: first Home page phase.","scripts":{"dev":"node scripts/serve.mjs","build":"node scripts/build.mjs","check":"node --check app.js && node --check product-preview.js && node --check media.js && node scripts/check.mjs"},"engines":{"node":">=20"}}
+{
+  "name": "serapos-website",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Global SeraPOS marketing website",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node --check app.js && node --check hero-scene.js && node --check scripts/generate.mjs && node scripts/check.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "three": "0.187.0"
+  }
+}
